@@ -111,6 +111,15 @@ Take a look at the [demos](https://github.com/PiterGroot/avalanche/tree/main/dem
 
 All demos share code for all the example cells. If you are courious about those implementation, you can check those out inside the project `DemoCore` [here](https://github.com/PiterGroot/avalanche/tree/main/demos/DemoCore/DemoCore/include)
 
+CMake is the easiest way to build the demo projects, to build, clone or download the repo and go to the root folder then:
+
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
 <h2></h2>
 
 <h4>RaylibDemo</h4>
