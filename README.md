@@ -24,7 +24,7 @@ https://github.com/user-attachments/assets/8ba8f900-1486-4bef-95c3-fd02e29d49b6
 
 * **Multithreaded** - Automatically distributes cell processing across threads for increased performance.
 * **Deterministic** - Same starting conditions always produce the same results.
-* **Drop-in integration** - Designed as a single-header library that can integrated into projects with minimal friction.
+* **Drop-in integration** - Designed as a single-header library that can be integrated into projects with minimal friction.
 * **User defined cell logic** - Create your own materials and behaviors through simple callbacks without modifying engine code.
 * **Complex cell behaviors** - Store custom data per cell to handle more complex states like fire spread, aging, temperature, and more.
 * **Core utilities** - Built-in functions for plotting cells, circles, lines, and rectangles and checking cell states and more.
@@ -110,6 +110,15 @@ Take a look at the [demos](https://github.com/PiterGroot/avalanche/tree/main/dem
 <h2>Demos</h2>
 
 All demos share code for all the example cells. If you are courious about those implementation, you can check those out inside the project `DemoCore` [here](https://github.com/PiterGroot/avalanche/tree/main/demos/DemoCore/DemoCore/include)
+
+CMake is the easiest way to build the demo projects, to build, clone or download the repo and go to the root folder then:
+
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
 
 <h2></h2>
 
