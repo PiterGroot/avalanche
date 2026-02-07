@@ -1,0 +1,3 @@
+add_subdirectory(DemoCore)
+add_subdirectory(RaylibDemo)
+add_subdirectory(ASCIIDemo)

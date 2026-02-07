@@ -589,6 +589,7 @@ bld/
 *.tlog
 *.recipe
 *.txt
+!CMakeLists.txt
 
 *glfw3.dll
 *raylib.dll
