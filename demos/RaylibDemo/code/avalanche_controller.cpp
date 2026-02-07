@@ -1,6 +1,13 @@
 #define AVALANCHE_DEBUG_DRAWER
-
 #include "avalanche_controller.hpp"
+
+#include <DemoCore/include/cell-behaviours/sand.hpp>
+#include <DemoCore/include/cell-behaviours/fire.hpp>
+#include <DemoCore/include/cell-behaviours/water.hpp>
+#include <DemoCore/include/cell-behaviours/smoke.hpp>
+#include <DemoCore/include/cell-behaviours/lava.hpp>
+#include <DemoCore/include/cell-behaviours/gun_powder.hpp>
+#include <DemoCore/include/cell-behaviours/plant.hpp>
 
 std::vector<AvalancheController::CreatedSector> AvalancheController::createdSectors;
 
@@ -34,11 +41,15 @@ AvalancheController::AvalancheController()
 	avalancheInitializer.world->set_on_sector_updated_listener(OnSectorUpdated);
 	avalancheInitializer.world->set_on_world_reset_listener(OnWorldReset);
 	avalancheInitializer.world->set_debug_drawer(&avalancheDebugDrawer);
-	avalancheInitializer.world->create_sector(0, 0); // Create default sector.
 }
 
 void AvalancheController::Update(float deltaTime, DemoImguiInterface::DEMO_MODE currentMode)
 {
+	bool isWorldSleeping = avalancheInitializer.world->is_sleeping();
+
+	if (isWorldSleeping && !isStepping)
+		return;
+
 	// Start clock stopwatch to measure frametimes.
 	clock.StartClock();
 
@@ -59,7 +70,8 @@ void AvalancheController::Update(float deltaTime, DemoImguiInterface::DEMO_MODE 
 	clock.EndClock();
 	clock.CalculateAverage();
 
-	avalancheInitializer.world->debug_draw();
+	if (!isWorldSleeping)
+		avalancheInitializer.world->debug_draw();
 }
 
 void AvalancheController::Draw(Camera2D& camera)

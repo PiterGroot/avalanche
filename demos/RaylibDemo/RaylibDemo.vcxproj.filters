@@ -51,9 +51,6 @@
     <ClCompile Include="code\clock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="noise\OpenSimplexNoise.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\avalanche_raylib_debug_drawer.hpp">
@@ -90,9 +87,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="code\cell-behaviours\lava.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\OpenSimplexNoise.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="code\common.hpp">

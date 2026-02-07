@@ -26,6 +26,10 @@
 #define AVALANCHE_VERSION_MINOR 1
 #define AVALANCHE_VERSION_PATCH 0
 
+#ifndef AVALANCHE_MAX_THREADS
+#define AVALANCHE_MAX_THREADS -1
+#endif
+
 #pragma warning(push)
 #pragma warning(disable: 4267)
 
@@ -607,7 +611,15 @@ namespace avl {
 		}
 
 #ifdef _OPENMP
-		_numThreads = omp_get_max_threads();
+		int maxThreads = omp_get_max_threads();
+
+#if AVALANCHE_MAX_THREADS == -1
+		_numThreads = maxThreads;
+#else
+		_numThreads = (maxThreads < AVALANCHE_MAX_THREADS) ? maxThreads : AVALANCHE_MAX_THREADS;
+#endif
+
+		omp_set_num_threads(_numThreads);
 #else
 		_numThreads = 1;
 #endif
@@ -678,49 +690,34 @@ namespace avl {
 
 	void SimulationSector::_update()
 	{
-		std::vector<SectorSimulationChunk*> oddChunks;
-		std::vector<SectorSimulationChunk*> evenChunks;
+		_activeChunks.clear();
 
 		for (int i = 0; i < _allChunks.size(); i++)
 		{
-			if (!_allChunks[i]->isSleeping) // Fill odd and even chunk buffers.
-			{
-				SectorSimulationChunk* chunk = _allChunks[i];
-				int chunkIndexX = chunk->chunkX / 50;
-				int chunkIndexY = chunk->chunkY / 50;
-
-				if ((chunkIndexX + chunkIndexY) % 2 == 0)
-					evenChunks.push_back(chunk);
-				else
-					oddChunks.push_back(chunk);
-			}
+			if (!_allChunks[i]->isSleeping)
+				_activeChunks.push_back(_allChunks[i]);
 		}
 
-		// Only use multiple threads if there areenough chunks to make it worthwhile.
+		if (_activeChunks.empty())
+		{
+			if (!hasBeenUpdatedThisFrame)
+				isSleeping = true;
+			hasBeenUpdatedThisFrame = false;
+			return;
+		}
+
 		static const int MIN_CHUNKS_FOR_THREADING = 4;
 
-		if (oddChunks.size() >= MIN_CHUNKS_FOR_THREADING)
+		if (_activeChunks.size() >= MIN_CHUNKS_FOR_THREADING)
 		{
-			_process_chunks(oddChunks);
-			_commit_cells();
+			_process_chunks(_activeChunks);
 		}
-		else if (!oddChunks.empty())
+		else
 		{
-			_process_chunks_sigle_threaded(oddChunks);
-			_commit_cells();
+			_process_chunks_sigle_threaded(_activeChunks);
 		}
 
-		if (evenChunks.size() >= MIN_CHUNKS_FOR_THREADING)
-		{
-			_process_chunks(evenChunks);
-			_commit_cells();
-		}
-		else if (!evenChunks.empty())
-		{
-			_process_chunks_sigle_threaded(evenChunks);
-			_commit_cells();
-		}
-
+		_commit_cells();
 		_reset_chunks();
 
 		if (!hasBeenUpdatedThisFrame)
