@@ -1479,9 +1479,9 @@ namespace avl {
 		return nullptr;
 	}
 
-	SimulationSector* World::get_sector_direct(int sectorID)
+	SimulationSector* World::get_sector_direct(int sectorIndex)
 	{
-		return _allSimulationSectors[sectorID];
+		return _allSimulationSectors[sectorIndex];
 	}
 
 	int World::get_sector_count()
