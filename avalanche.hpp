@@ -307,6 +307,7 @@ namespace avl
 		SimulationSector* get_or_create_sector(int worldX, int worldY);
 		SimulationSector* try_get_sector(int worldX, int worldY);
 		SimulationSector* get_sector_direct(int sectorID);
+		int get_sector_count();
 		static void set_debug_drawer(SimulationDebugDrawer* debugDrawer);
 		static SimulationDebugDrawer* get_debug_drawer();
 		friend void utils::register_cell(uint8_t cellID, uint32_t cellColor, World& world, CellUpdateCallback callback, uint32_t cellUserData);
@@ -1241,10 +1242,10 @@ namespace avl {
 	void World::set_cell_user_data(int worldX, int worldY, const CellUserData& data)
 	{
 		SimulationSector* sector = try_get_sector(worldX, worldY);
-		
+
 		int localX = worldX - sector->worldX;
 		int localY = worldY - sector->worldY;
-		
+
 		sector->_set_cell_user_data(localX, localY, data);
 	}
 
@@ -1481,6 +1482,11 @@ namespace avl {
 	SimulationSector* World::get_sector_direct(int sectorID)
 	{
 		return _allSimulationSectors[sectorID];
+	}
+
+	int World::get_sector_count()
+	{
+		return _allSimulationSectors.size();
 	}
 
 	void World::set_debug_drawer(SimulationDebugDrawer* debugDrawer)
