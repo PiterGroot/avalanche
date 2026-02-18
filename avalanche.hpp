@@ -306,7 +306,7 @@ namespace avl
 		SimulationSector* create_sector(int worldX, int worldY);
 		SimulationSector* get_or_create_sector(int worldX, int worldY);
 		SimulationSector* try_get_sector(int worldX, int worldY);
-		SimulationSector* get_sector_direct(int sectorID);
+		SimulationSector* get_sector_direct(int sectorIndex);
 		int get_sector_count();
 		static void set_debug_drawer(SimulationDebugDrawer* debugDrawer);
 		static SimulationDebugDrawer* get_debug_drawer();
