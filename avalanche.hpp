@@ -1486,7 +1486,7 @@ namespace avl {
 
 	int World::get_sector_count()
 	{
-		return _allSimulationSectors.size();
+		return (int)_allSimulationSectors.size();
 	}
 
 	void World::set_debug_drawer(SimulationDebugDrawer* debugDrawer)
