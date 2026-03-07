@@ -78,28 +78,26 @@ namespace avl
 	struct RegisteredCelllPrefab
 	{
 		uint8_t type = 0;
-		uint32_t color = 0;
+		uint32_t colorA = 0;
+		uint32_t colorB = 0;
 		uint32_t userData = 0;
-		CellUpdateCallback updateCallback;
+		CellUpdateCallback updateCallback = {};
 	};
 
 	// Global utils namespace functions.
 	//-------------------------------------------
 	namespace utils
 	{
-		void register_cell(uint8_t cellID, uint32_t cellColor, World& world, CellUpdateCallback callback = nullptr, uint32_t cellUserData = 0);
+		void register_cell(uint8_t cellID, uint32_t cellColorA, uint32_t cellColorB, World& world, CellUpdateCallback callback = nullptr, uint32_t cellUserData = 0);
 		int get_random_value(int min, int max);
 		float get_random_value(float min, float max);
 		float get_random_value01();
 		bool get_chance(float input);
+		uint32_t lerp_packed_RGBA(uint32_t a, uint32_t b, uint32_t alpha);
+		uint32_t lerp_packed_RGBA(uint32_t a, uint32_t b, float alpha);
 		uint32_t pack_RGBA(float r, float g, float b, float a);
 		void unpack_RGBA(uint32_t packedColor, float& r, float& g, float& b, float& a);
-		uint32_t set_alpha_packed_RGBA(uint32_t packedColor, float a);
-		uint32_t set_red_packed_RGBA(uint32_t packedColor, float r);
-		uint32_t set_green_packed_RGBA(uint32_t packedColor, float g);
-		uint32_t set_blue_packed_RGBA(uint32_t packedColor, float b);
 		uint32_t HSVtoRGB(float h, float s, float v);
-		float fast_inv_sqrt(float x);
 	} // namespace utils
 
 	class Logging
@@ -300,9 +298,9 @@ namespace avl
 		void plot_rectangle(int x0, int y0, int x1, int y1, int registeredCellID, float placeChance = 1.0f);
 		void plot_circle(int xPosition, int yPosition, int size, int registeredCellID, float placeChance = 1.0f);
 		void plot_cell(int x, int y, int registeredCellID, bool notify = true);
-		void plot_cell_if_empty(int x, int y, int registeredCellID, bool notify = true);
 		void plot_cell(int x, int y, int registeredCellID, float alphaMin, float alphaMax, bool notify = true);
 		void plot_cell(int x, int y, int registeredCellID, uint32_t overrideColor, bool notify = true);
+		void plot_cell_if_empty(int x, int y, int registeredCellID, bool notify = true);
 		SimulationSector* create_sector(int worldX, int worldY);
 		SimulationSector* get_or_create_sector(int worldX, int worldY);
 		SimulationSector* try_get_sector(int worldX, int worldY);
@@ -310,7 +308,7 @@ namespace avl
 		int get_sector_count();
 		static void set_debug_drawer(SimulationDebugDrawer* debugDrawer);
 		static SimulationDebugDrawer* get_debug_drawer();
-		friend void utils::register_cell(uint8_t cellID, uint32_t cellColor, World& world, CellUpdateCallback callback, uint32_t cellUserData);
+		friend void utils::register_cell(uint8_t cellID, uint32_t cellColorA, uint32_t cellColorB, World& world, CellUpdateCallback callback, uint32_t cellUserData);
 #ifdef AVALANCHE_USE_CELL_POST_POSTPROCESSOR
 		CellPostProcessor get_cell_post_processor() const;
 		void set_cell_post_processor(CellPostProcessor cellPostProcessor);
@@ -361,15 +359,15 @@ namespace avl {
 
 	// Utils global implementations.
 	//----------------------------------------
-	void utils::register_cell(uint8_t cellID, uint32_t cellColor, World& world, CellUpdateCallback callback, uint32_t cellUserData)
+	void utils::register_cell(uint8_t cellID, uint32_t cellColorA, uint32_t cellColorB, World& world, CellUpdateCallback callback, uint32_t cellUserData)
 	{
-		RegisteredCelllPrefab newCellPrefab =
-		{
-			cellID,
-			cellColor,
-			cellUserData,
-			callback
-		};
+		RegisteredCelllPrefab newCellPrefab = RegisteredCelllPrefab();
+
+		newCellPrefab.type = cellID;
+		newCellPrefab.colorA = cellColorA;
+		newCellPrefab.colorB = cellColorB;
+		newCellPrefab.userData = cellUserData;
+		newCellPrefab.updateCallback = callback;
 
 		world._registeredCells.push_back(newCellPrefab);
 	}
@@ -394,6 +392,18 @@ namespace avl {
 		return ((float)rand() / RAND_MAX) < input;
 	}
 
+	uint32_t utils::lerp_packed_RGBA(uint32_t a, uint32_t b, uint32_t alpha)
+	{
+		uint32_t rb = (((b & 0xFF00FF) - (a & 0xFF00FF)) * alpha >> 8) + (a & 0xFF00FF);
+		uint32_t ag = (((b >> 8 & 0xFF00FF) - (a >> 8 & 0xFF00FF)) * alpha >> 8) + (a >> 8 & 0xFF00FF);
+		return (rb & 0xFF00FF) | (ag & 0xFF00FF) << 8;
+	}
+
+	uint32_t utils::lerp_packed_RGBA(uint32_t a, uint32_t b, float alpha)
+	{
+		return lerp_packed_RGBA(a, b, static_cast<uint32_t>(alpha * 256.0f));
+	}
+
 	uint32_t utils::pack_RGBA(float r, float g, float b, float a)
 	{
 		uint8_t ur = (uint8_t)(r * 255.0f);
@@ -409,30 +419,6 @@ namespace avl {
 		g = ((packedColor >> 8) & 0xFF) / 255.0f;
 		b = ((packedColor >> 16) & 0xFF) / 255.0f;
 		a = ((packedColor >> 24) & 0xFF) / 255.0f;
-	}
-
-	uint32_t utils::set_alpha_packed_RGBA(uint32_t packedColor, float a)
-	{
-		uint8_t ua = (uint8_t)(a * 255.0f);
-		return (packedColor & 0x00FFFFFF) | (ua << 24);
-	}
-
-	uint32_t utils::set_red_packed_RGBA(uint32_t packedColor, float r)
-	{
-		uint8_t ur = (uint8_t)(r * 255.0f);
-		return (packedColor & 0xFFFFFF00) | ur;
-	}
-
-	uint32_t utils::set_green_packed_RGBA(uint32_t packedColor, float g)
-	{
-		uint8_t ug = (uint8_t)(g * 255.0f);
-		return (packedColor & 0xFFFF00FF) | (ug << 8);
-	}
-
-	uint32_t utils::set_blue_packed_RGBA(uint32_t packedColor, float b)
-	{
-		uint8_t ub = (uint8_t)(b * 255.0f);
-		return (packedColor & 0xFF00FFFF) | (ub << 16);
 	}
 
 	uint32_t utils::HSVtoRGB(float h, float s, float v)
@@ -455,16 +441,6 @@ namespace avl {
 		}
 
 		return utils::pack_RGBA(r, g, b, 1.0f);
-	}
-
-	float utils::fast_inv_sqrt(float x) // Quake III fast inverse square root.
-	{
-		float xhalf = 0.5f * x;
-		int i = *(int*)&x;
-		i = 0x5f3759df - (i >> 1);
-		x = *(float*)&i;
-		x = x * (1.5f - xhalf * x * x);
-		return x;
 	}
 
 #ifndef AVALANCHE_DISABLE_LOGGING
@@ -670,16 +646,16 @@ namespace avl {
 	void SimulationSector::set_cell(int index, RegisteredCelllPrefab* cell)
 	{
 		_activeCellIDs[index] = cell->type;
-		cell->color = utils::set_alpha_packed_RGBA(cell->color, avl::utils::get_random_value(0.70f, 1.0f));
-		_activeCellColors[index] = cell->color;
+		float lerpAlpha = utils::get_random_value01();
+		_activeCellColors[index] = utils::lerp_packed_RGBA(cell->colorA, cell->colorB, lerpAlpha);
 		_activeCellsUserData[index] = cell->userData;
 	}
 
 	void SimulationSector::set_cell(int index, float cellColorAlphaMin, float cellColorAlphaMax, RegisteredCelllPrefab* cell)
 	{
 		_activeCellIDs[index] = cell->type;
-		cell->color = utils::set_alpha_packed_RGBA(cell->color, avl::utils::get_random_value(cellColorAlphaMin, cellColorAlphaMax));
-		_activeCellColors[index] = cell->color;
+		float lerpAlpha = utils::get_random_value(cellColorAlphaMin, cellColorAlphaMax);
+		_activeCellColors[index] = utils::lerp_packed_RGBA(cell->colorA, cell->colorB, lerpAlpha);
 		_activeCellsUserData[index] = cell->userData;
 	}
 
@@ -1359,24 +1335,6 @@ namespace avl {
 		}
 	}
 
-	void World::plot_cell_if_empty(int x, int y, int registeredCellID, bool notify)
-	{
-		SimulationSector* sector = get_or_create_sector(x, y);
-
-		if (!sector->_is_empty(x - sector->worldX, y - sector->worldY))
-			return;
-
-		auto* cell = &_registeredCells[registeredCellID];
-		sector->set_cell(x - sector->worldX, y - sector->worldY, cell);
-
-		if (notify)
-		{
-			sector->_notify_chunk(sector->_get_chunk_unsafe(x - sector->worldX, y - sector->worldY));
-			sector->notify_sector();
-			_isSleeping = false;
-		}
-	}
-
 	void World::plot_cell(int x, int y, int registeredCellID, float alphaMin, float alphaMax, bool notify)
 	{
 		SimulationSector* sector = get_or_create_sector(x, y);
@@ -1398,6 +1356,24 @@ namespace avl {
 		int cellIndex = sector->calculate_index(x - sector->worldX, y - sector->worldY);
 		sector->set_cell(cellIndex, cell);
 		sector->_activeCellColors[cellIndex] = overrideColor;
+
+		if (notify)
+		{
+			sector->_notify_chunk(sector->_get_chunk_unsafe(x - sector->worldX, y - sector->worldY));
+			sector->notify_sector();
+			_isSleeping = false;
+		}
+	}
+
+	void World::plot_cell_if_empty(int x, int y, int registeredCellID, bool notify)
+	{
+		SimulationSector* sector = get_or_create_sector(x, y);
+
+		if (!sector->_is_empty(x - sector->worldX, y - sector->worldY))
+			return;
+
+		auto* cell = &_registeredCells[registeredCellID];
+		sector->set_cell(x - sector->worldX, y - sector->worldY, cell);
 
 		if (notify)
 		{
