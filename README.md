@@ -174,4 +174,4 @@ These resources provided invaluable insights into performance optimization, API 
 
 <h2>Academic Disclosure</h2>
 
-This project was developed as part of my studies at <a href="https://www.buas.nl/en/programmes/creative-media-and-game-technologies">BUas Games</a>. Published with staff permission. From <a href="https://github.com/PiterGroot/avalanche/commit/5220cdf68c24a877573bc0aaa801d18d67c9aaf0">this commit</a> onward the project became a personal side project independent of any school assignment.
+This project was developed as part of my studies at <a href="https://www.buas.nl/en/programmes/creative-media-and-game-technologies">BUas Games</a>. Published with staff permission. From <a href="https://github.com/PiterGroot/avalanche/commit/5220cdf68c24a877573bc0aaa801d18d67c9aaf0">this commit</a> (commit name is "added project files", committed on Feb 7 2026) onward the project became a personal side project independent of any school assignment.
