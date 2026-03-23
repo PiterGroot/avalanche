@@ -13,7 +13,7 @@
   </table>
 </p>
 
-<h2 align="center">Avalanche : A C++ Falling Sand Engine</h2>
+<h2 align="center">Avalanche : A C++ Falling Sand Library</h2>
 
 <div align="center">
 
