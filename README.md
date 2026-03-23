@@ -113,9 +113,9 @@ Take a look at the [demos](https://github.com/PiterGroot/avalanche/tree/main/dem
 
 <h2>Demos</h2>
 
-All demos share code for all the example cells. If you are courious about those implementation, you can check those out inside the project `DemoCore` [here](https://github.com/PiterGroot/avalanche/tree/main/demos/DemoCore/DemoCore/include)
+All demos share code for all the example cells. If you are courious about those implementation, you can check those out inside the project `DemoCore` [here](https://github.com/PiterGroot/avalanche/tree/main/demos/DemoCore/DemoCore/include).
 
-CMake is the easiest way to build the demo projects, to build, clone or download the repo and go to the root folder then:
+CMake is setup to build the demo projects, To build the demo's, clone or download the repo and go to the root of the folder then:
 
 ```bash
 mkdir build
