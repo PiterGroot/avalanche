@@ -23,13 +23,15 @@
 
 <h2>Introduction</h2>
 
-A production-ready falling sand physics engine designed as a single-header C++ library. Able to simulate thousands of cells on the CPU that developers can integrate into their projects with minimal friction. In Avalanche, all cell behavior is user defined via a clean API, allowing for easy extension and in-depth customization.
+Avalanche is A production-ready falling sand physics engine designed as a single-header C++ library. Able to simulate 1M+ cells on the CPU. The library can be integrated into any c++ project with minimal friction. In Avalanche, all cell behavior is user defined via a clean API, allowing for easy extension and in-depth customization.
 
 <h3>Showcase</h3>
 
 https://github.com/user-attachments/assets/8ba8f900-1486-4bef-95c3-fd02e29d49b6
+<h5 align="center"><i>Video showcasing some of the behaviors that can be simulated using the API.</i></h5>
 
-<h5 align="center"><i>Here is a video showcasing some of the behaviors that can be simulated using the API.</i></h5>
+https://github.com/user-attachments/assets/c64171a0-9ba5-4d6d-9e3c-6708354f71cc
+<h5 align="center"><i>Video showcasing one million cells simulated in real-time. Each sector grid holds 250,000 cells. Any visual artifacts are caused by the recording software having a different framerate.</i></h5>
 
 <h2>Features</h2>
 
