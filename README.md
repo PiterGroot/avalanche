@@ -17,7 +17,7 @@
 
 <div align="center">
 
-**[Introduction](#introduction)** • **[Features](#features)** • **[Integration](#integration)** • **[API Design](#api-design)** • **[Demos](#demos)** • **[References](#references)**
+**[Introduction](#introduction)** • **[Features](#features)** • **[Integration](#integration)** • **[API Design](#api-design)** • **[Demos](#demos)** • **[References](#references)** • **[Academic disclosure](#academic-disclosure)**
 
 </div>
 
