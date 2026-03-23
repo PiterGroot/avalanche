@@ -22,9 +22,7 @@
     <ClInclude Include="DemoCore\include\avalanche_initializer.hpp" />
     <ClInclude Include="DemoCore\include\cell-behaviours\acid.hpp" />
     <ClInclude Include="DemoCore\include\cell-behaviours\firework.hpp" />
-    <ClInclude Include="DemoCore\include\cell-behaviours\magnet_south.hpp" />
     <ClInclude Include="DemoCore\include\cell-behaviours\quantum_matter.hpp" />
-    <ClInclude Include="DemoCore\include\cell-behaviours\magnet_north.hpp" />
     <ClInclude Include="DemoCore\include\cell-behaviours\spark.hpp" />
     <ClInclude Include="DemoCore\include\cell-behaviours\fire.hpp" />
     <ClInclude Include="DemoCore\include\cell-behaviours\gun_powder.hpp" />

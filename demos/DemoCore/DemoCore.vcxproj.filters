@@ -51,9 +51,6 @@
     <ClInclude Include="DemoCore\include\cell-behaviours\spark.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DemoCore\include\cell-behaviours\magnet_north.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DemoCore\include\cell-behaviours\unstable_matter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -61,9 +58,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DemoCore\include\cell-behaviours\acid.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DemoCore\include\cell-behaviours\magnet_south.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DemoCore\include\cell-behaviours\firework.hpp">
