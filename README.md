@@ -1,5 +1,16 @@
 <p align="center">
-  <img width="400" height="215" alt="logo" src="https://github.com/user-attachments/assets/87001539-7f56-471a-88f3-2476df0fcec8" />
+  <table align="center" border="0">
+    <tr>
+      <td>
+        <img width="400" height="215" alt="logo" src="https://github.com/user-attachments/assets/87001539-7f56-471a-88f3-2476df0fcec8" />
+      </td>
+      <td>
+        <a href="https://www.buas.nl/en/programmes/creative-media-and-game-technologies">
+          <img height="80" alt="BUas logo" src="https://www.buas.nl/sites/default/files/2018-09/Logo%20BUas_RGB.png" />
+        </a>
+      </td>
+    </tr>
+  </table>
 </p>
 
 <h2 align="center">Avalanche : A C++ Falling Sand Engine</h2>
@@ -158,3 +169,7 @@ This library was inspired by and built upon the following resources and projects
 </ul>
 
 These resources provided invaluable insights into performance optimization, API design, and simulation techniques that shaped the development of this project.
+
+<h2>Academic Disclosure</h2>
+
+This project was developed as part of my studies at <a href="https://www.buas.nl/en/programmes/creative-media-and-game-technologies">BUas Games</a>. Published with staff permission. From <a href="https://github.com/PiterGroot/avalanche/commit/5220cdf68c24a877573bc0aaa801d18d67c9aaf0">this commit</a> onward the project became a personal side project independent of any school assignment.
