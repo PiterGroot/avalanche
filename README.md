@@ -136,7 +136,7 @@ cd build
 cmake ..
 cmake --build .
 ```
-After CMake is done generating, open the newly created visual studio sln file, select your desired build configuration and build any specific demo or the whole solution (all demos). 
+After CMake is done generating, open the newly created visual studio sln file, select your desired build configuration and build any specific demo or the whole solution (all demos). These demos can then be launched in their specific folders by running the generated exe's.
 
 <h2></h2>
 
