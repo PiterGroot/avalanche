@@ -6,7 +6,7 @@
 
 <div align="center">
 
-**[Introduction](#introduction)** • **[Showcase](#showcase)** • **[Features](#features)** • **[Integration](#integration)** • **[API Design](#api-design)** • **[Basic Example](#basic-example)** • **[Demos](#demos)** • **[References](#references)**
+**[Introduction](#introduction)** • **[Features](#features)** • **[Integration](#integration)** • **[API Design](#api-design)** • **[Demos](#demos)** • **[References](#references)**
 
 </div>
 
@@ -14,7 +14,7 @@
 
 A production-ready falling sand physics engine designed as a single-header C++ library. Able to simulate thousands of cells on the CPU that developers can integrate into their projects with minimal friction. In Avalanche, all cell behavior is user defined via a clean API, allowing for easy extension and in-depth customization.
 
-<h2>Showcase</h2>
+<h3>Showcase</h3>
 
 https://github.com/user-attachments/assets/8ba8f900-1486-4bef-95c3-fd02e29d49b6
 
@@ -53,8 +53,10 @@ One of the project goals is to provide a clean and flexible API that allows user
 
 <br>This struct is a context object passed to cell update functions, providing them with all the necessary information and utilities to perform their behavior. This allows users to create new cell types without modifying the engine code itself, making it much more flexible and extensible.
 
-<h2>Basic example</h2>
-Here is an example of how a user-defined cell update function can look like:<br><br>
+<details>
+	<summary><h3>Practical example</h3></summary>
+
+Here is an example of how a user-defined cell update function can look like:<br>
 
 ```cpp
 void UpdateSandCell(avl::CellUpdateContext& ctx)
@@ -104,6 +106,8 @@ avl::utils::register_cell
     avl::CellUserData(HOT | SHORT_LIFE_TIME, 0).pack()  // Initial user data of a fire cell (flags + value).
 );
 ```
+	
+</details>
 
 Take a look at the [demos](https://github.com/PiterGroot/avalanche/tree/main/demos) for a simple complete implementation. See below a brief summery of every current demo.
 
