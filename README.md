@@ -23,7 +23,7 @@
 
 <h2>Introduction</h2>
 
-Avalanche is a production-ready falling sand physics engine designed as a single-header C++ library. Able to simulate 1M+ cells on the CPU at the same time. The library can be integrated into c++ project with minimal friction. In Avalanche, all cell behavior is user defined via a clean API, allowing for easy extension and in-depth customization.
+Avalanche is a production-ready falling sand physics engine designed as a single-header C++ library. Able to simulate 1M+ cells on the CPU in parallel. The library can be integrated into C++ projects with minimal friction. In Avalanche, all cell behavior is user-defined via a clean API, allowing for easy extension and in-depth customization.
 
 <h3>Showcase</h3>
 
@@ -38,7 +38,7 @@ https://github.com/user-attachments/assets/c64171a0-9ba5-4d6d-9e3c-6708354f71cc
 * **Multithreaded** - Automatically distributes cell processing across threads for increased performance.
 * **Deterministic** - Same starting conditions always produce the same results.
 * **Drop-in integration** - Designed as a single-header library that can be integrated into projects with minimal friction.
-* **User defined cell logic** - Create your own materials and behaviors through simple callbacks without modifying engine code.
+* **User-defined cell logic** - Create your own materials and behaviors through simple callbacks without modifying engine code.
 * **Complex cell behaviors** - Store custom data per cell to handle more complex states like fire spread, aging, temperature, and more.
 * **Core utilities** - Built-in functions for plotting cells, circles, lines, and rectangles and checking cell states and more.
 
@@ -95,7 +95,7 @@ void UpdateSandCell(avl::CellUpdateContext& ctx)
 
 In this example, the UpdateSandCell function defines the behavior of a sand cell using the given CellUpdateContext struct. It checks the cell directly below it, and if that cell is empty, it moves down. If the cell below is water, it swaps places with the water cell half of the time, simulating sand sinking through water. The function uses methods provided by the CellUpdateContext to interact with the simulation, such as checking for out-of-bounds conditions, determining if a cell is empty, moving cells, and swapping cells.
 
-To register this cell just call the global function <code>register_cell</code> in the `avl` namespace. In this example, I register a sand cell with ID 4, a bright orange color, and associate it with the UpdateSandCell function shown above.
+To register this cell, just call the global function <code>register_cell</code> in the `avl` namespace. In this example, I register a sand cell with ID 4, a bright orange color, and associate it with the UpdateSandCell function shown above.
 
 ```cpp
 avl::utils::register_cell
@@ -122,13 +122,13 @@ avl::utils::register_cell
 	
 </details>
 
-Take a look at the [demos](https://github.com/PiterGroot/avalanche/tree/main/demos) for a simple complete implementation. See below a brief summery of every current demo.
+Take a look at the [demos](https://github.com/PiterGroot/avalanche/tree/main/demos) for a simple, complete implementation. See below a brief summery of every current demo.
 
 <h2>Demos</h2>
 
 All demos share code for all the example cells. If you are courious about those implementation, you can check those out inside the project `DemoCore` [here](https://github.com/PiterGroot/avalanche/tree/main/demos/DemoCore/DemoCore/include).
 
-CMake is setup to build the demo projects, To build the demo's, clone or download the repo and go to the root of the folder then:
+CMake is set up to build the demo projects. To build the demos, clone or download the repo and go to the root of the folder, then:
 
 ```bash
 mkdir build
@@ -136,7 +136,7 @@ cd build
 cmake ..
 cmake --build .
 ```
-After CMake is done generating, open the newly created visual studio sln file, select your desired build configuration and build any specific demo or the whole solution (all demos). These demos can then be launched in their specific folders by running the generated exe's.
+After CMake is done generating, open the newly created Visual Studio SLN file, select your desired build configuration and build any specific demo or the whole solution (all demos). These demos can then be launched in their specific folders by running the generated exe's.
 
 <h2></h2>
 
@@ -154,7 +154,7 @@ https://github.com/user-attachments/assets/4e6d0c77-0614-44bc-ae2e-28efa7c5a1f8
 
 <h4>Benchmarker</h4>
 
-A demo project that runs avalanche headless to simulate different falling-sand configurations to gather some performance insights on increasingly complex scenes.
+A demo project that runs Avalanche headless to simulate different falling-sand configurations to gather some performance insights on increasingly complex scenes.
 
 https://github.com/user-attachments/assets/3bf80b1a-c449-4817-9a19-6c573401da1b
 
