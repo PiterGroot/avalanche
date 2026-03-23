@@ -23,7 +23,7 @@
 
 <h2>Introduction</h2>
 
-Avalanche is A production-ready falling sand physics engine designed as a single-header C++ library. Able to simulate 1M+ cells on the CPU. The library can be integrated into any c++ project with minimal friction. In Avalanche, all cell behavior is user defined via a clean API, allowing for easy extension and in-depth customization.
+Avalanche is a production-ready falling sand physics engine designed as a single-header C++ library. Able to simulate 1M+ cells on the CPU at the same time. The library can be integrated into c++ project with minimal friction. In Avalanche, all cell behavior is user defined via a clean API, allowing for easy extension and in-depth customization.
 
 <h3>Showcase</h3>
 
@@ -174,4 +174,8 @@ These resources provided invaluable insights into performance optimization, API 
 
 <h2>Academic Disclosure</h2>
 
-This project was developed as part of my studies at <a href="https://www.buas.nl/en/programmes/creative-media-and-game-technologies">BUas Games</a>. Published with staff permission. From <a href="https://github.com/PiterGroot/avalanche/commit/5220cdf68c24a877573bc0aaa801d18d67c9aaf0">this commit</a> (commit name is "added project files", committed on Feb 7 2026) onward the project became a personal side project independent of any school assignment.
+This project was developed as part of my studies at <a href="https://www.buas.nl/en/programmes/creative-media-and-game-technologies">BUas Games</a> during the second block (block b) of my second year in the programming track. Published with staff permission. 
+
+From <a href="https://github.com/PiterGroot/avalanche/commit/5220cdf68c24a877573bc0aaa801d18d67c9aaf0">this commit</a> (commit name is "added project files", committed on Feb 7 2026) onward the project became a personal side project independent of any school assignment.
+
+#BUas, #BUasGames, #GameProgramming, #Graphics, #Physics
