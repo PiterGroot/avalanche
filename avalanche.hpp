@@ -15,8 +15,6 @@
 #ifndef AVALANCHE
 #define AVALANCHE
 
-//#define AVALANCHE_IMPLEMENTATION
-
 //--------------------------------------------
 // LIBRARY PRELUDES
 //--------------------------------------------
