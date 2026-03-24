@@ -1,1 +1,0 @@
-// This file exists only so Visual Studio shows C/C++ compiler settings.
