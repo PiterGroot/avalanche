@@ -23,7 +23,7 @@
 
 <h2>Introduction</h2>
 
-Avalanche is a production-ready falling sand physics engine designed as a single-header C++ library. Able to simulate 1M+ cells on the CPU in parallel. The library can be integrated into C++ projects with minimal friction. In Avalanche, all cell behavior is user-defined via a clean API, allowing for easy extension and in-depth customization.
+Avalanche is a falling sand physics engine designed as a single-header c++ library, able to simulate over 1 million cells concurrent on the CPU. The library is easy integrate into existing c++ projects with minimal friction. In Avalanche, all cell behavior is user-defined via a clean API, allowing for easy extension and in-depth customization.
 
 <h3>Showcase</h3>
 
@@ -62,7 +62,7 @@ That's it! No additional dependencies or build configurations required. The libr
 For a complete working example, check out the [demos](https://github.com/PiterGroot/avalanche/tree/main/demos) which show how to set up a world, register cells, and integrate with different rendering backends.
 
 <h2>API design</h2>
-One of the project goals is to provide a clean and flexible API that allows users to define custom cell types and behaviors easily. Users can define their own cell types and behaviors using function pointers. This is all possible with the `CellUpdateContext` struct.
+One of the project goals is to provide a flexible API that allows users to easily define custom cell types and behaviors. Users can define their own cell types and behaviors using function pointers. This is all possible with the `CellUpdateContext` struct.
 
 <br>This struct is a context object passed to cell update functions, providing them with all the necessary information and utilities to perform their behavior. This allows users to create new cell types without modifying the engine code itself, making it much more flexible and extensible.
 
@@ -174,8 +174,8 @@ These resources provided invaluable insights into performance optimization, API 
 
 <h2>Academic Disclosure</h2>
 
-This project was developed as part of my studies at <a href="https://www.buas.nl/en/programmes/creative-media-and-game-technologies">BUas Games</a> during the second block (block b) of my second year in the programming track. Published with staff permission. 
+This project was initally developed as part of my studies at <a href="https://www.buas.nl/en/programmes/creative-media-and-game-technologies">BUas Games</a> during the second block (block b) of my second year in the programming track. Published with staff permission. 
 
-From <a href="https://github.com/PiterGroot/avalanche/commit/5220cdf68c24a877573bc0aaa801d18d67c9aaf0">this commit</a> (commit name is "added project files", committed on Feb 7 2026) onward the project became a personal side project independent of any school assignment.
+From <a href="https://github.com/PiterGroot/avalanche/commit/5220cdf68c24a877573bc0aaa801d18d67c9aaf0">this commit</a> onward the project became a personal side project independent of any school assignment.
 
 #BUas, #BUasGames, #GameProgramming, #Graphics, #Physics
