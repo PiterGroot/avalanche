@@ -35,7 +35,7 @@ https://github.com/user-attachments/assets/c64171a0-9ba5-4d6d-9e3c-6708354f71cc
 
 <h2>Features</h2>
 
-* **Multithreaded** - Automatically distributes cell processing across threads for increased performance.
+* **Multithreaded** - Automatically distributes cell processing across threads for better performance.
 * **Deterministic** - Same starting conditions always produce the same results.
 * **Drop-in integration** - Designed as a single-header library that can be integrated into projects with minimal friction.
 * **User-defined cell logic** - Create your own materials and behaviors through simple callbacks without modifying engine code.
