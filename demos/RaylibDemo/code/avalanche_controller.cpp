@@ -41,6 +41,8 @@ AvalancheController::AvalancheController()
 	avalancheInitializer.world->set_on_sector_updated_listener(OnSectorUpdated);
 	avalancheInitializer.world->set_on_world_reset_listener(OnWorldReset);
 	avalancheInitializer.world->set_debug_drawer(&avalancheDebugDrawer);
+	avalancheInitializer.world->create_sector(0, 0);
+	avalancheInitializer.world->plot_rectangle(100, 350, 399, 375, 1);
 }
 
 void AvalancheController::Update(float deltaTime, DemoImguiInterface::DEMO_MODE currentMode)

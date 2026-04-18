@@ -30,8 +30,8 @@ inline bool OnUpdateUnstableMatter(avl::CellUpdateContext& ctx)
 
 	if (data.value > 40)
 	{
-		uint8_t possibleTransforms[] = { 2, 3, 5, 6, 8, 9, 11, 12, 13, 14, 7 };
-		uint8_t newCell = possibleTransforms[avl::utils::get_random_value(0, 11)];
+		uint8_t possibleTransforms[] = { 1, 2, 3, 4, 5, 6, 7, 9, 10, 12, 12, 12, 12, 12, 12, 12 };
+		uint8_t newCell = possibleTransforms[avl::utils::get_random_value(0, 15)];
 
 		ctx.world->plot_cell(
 			ctx.x + ctx.sector->worldX,

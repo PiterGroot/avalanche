@@ -257,11 +257,7 @@ void DemoImguiInterface::ShowMaterialButtons()
 	ImGui::SameLine();
 	DrawMaterialButton("wood_button", &woodTexture, 5);
 	ImGui::SameLine();
-	DrawMaterialButton("steel_button", &steelTexture, 14);
-	ImGui::SameLine();
-	DrawMaterialButton("magnet_north_button", &magnetNorthTexture, 15);
-	ImGui::SameLine();
-	DrawMaterialButton("magnet_south_button", &magnetSouthTexture, 19);
+	DrawMaterialButton("steel_button", &steelTexture, 11);
 	ImGui::SameLine();
 	DrawMaterialButton("sand_button", &sandTexture, 2);
 	ImGui::SameLine();
@@ -269,23 +265,23 @@ void DemoImguiInterface::ShowMaterialButtons()
 	ImGui::SameLine();
 	DrawMaterialButton("water_button", &waterTexture, 3);
 	ImGui::SameLine();
-	DrawMaterialButton("acid_button", &acidTexture, 18);
+	DrawMaterialButton("acid_button", &acidTexture, 14);
 	ImGui::SameLine();
 	DrawMaterialButton("smoke_button", &smokeTexture, 6);
 	ImGui::SameLine();
 	DrawMaterialButton("fire_button", &fireTexture, 4);
 	ImGui::SameLine();
-	DrawMaterialButton("gun_powder_button", &gunPowderTexture, 11);
+	DrawMaterialButton("gun_powder_button", &gunPowderTexture, 8);
 	ImGui::SameLine();
-	DrawMaterialButton("firework_button", &fireworkTexture, 20);
+	DrawMaterialButton("firework_button", &fireworkTexture, 15);
 	ImGui::SameLine();
-	DrawMaterialButton("plant_button", &plantTexture, 12);
+	DrawMaterialButton("plant_button", &plantTexture, 9);
 	ImGui::SameLine();
-	DrawMaterialButton("spark_button", &sparkTexture, 13);
+	DrawMaterialButton("spark_button", &sparkTexture, 10);
 	ImGui::SameLine();
-	DrawMaterialButton("unstable_matter_button", &unstableMatterTexture, 16);
+	DrawMaterialButton("unstable_matter_button", &unstableMatterTexture, 12);
 	ImGui::SameLine();
-	DrawMaterialButton("quantum_matter_button", &quantumMatterTextureTexture, 17);
+	DrawMaterialButton("quantum_matter_button", &quantumMatterTextureTexture, 13);
 
 	ImGui::End();
 }

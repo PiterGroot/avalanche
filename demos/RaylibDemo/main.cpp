@@ -41,6 +41,7 @@ int main()
 		
 		cameraController.Update(deltaTime);
 		avalancheDebugPlacer.Update(*avalancheController.avalancheInitializer.world, mousePosition, demoInterface.selectedMaterialIndex);
+		
 		avalancheController.Update(deltaTime, demoInterface.mode);
 		
 		if (IsKeyPressed(KEY_F1))

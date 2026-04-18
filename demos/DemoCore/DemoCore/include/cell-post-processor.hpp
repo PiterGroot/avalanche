@@ -113,7 +113,7 @@ void UpdateSparkSpread(avl::CellUpdateContext& ctx, avl::CellUserData data)
 		for (const auto& neighbor : neighborsWorld)
 		{
 			uint8_t neighborID = ctx.world->get_cell_id_safe(neighbor.x, neighbor.y);
-			if (neighborID == 13) // Spark ID.
+			if (neighborID == 10) // Spark ID.
 			{
 				hasSparkNeighbor = true;
 				break;
@@ -125,7 +125,7 @@ void UpdateSparkSpread(avl::CellUpdateContext& ctx, avl::CellUserData data)
 			if (avl::utils::get_chance(0.65f))
 			{
 				// Convert wire to spark.
-				ctx.world->plot_cell(worldX, worldY, 13);
+				ctx.world->plot_cell(worldX, worldY, 10);
 				ctx.notify_chunk();
 				ctx.notify_sector();
 

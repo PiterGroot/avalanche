@@ -74,80 +74,56 @@ AvalancheInitializer::AvalancheInitializer()
 		avl::utils::register_cell(7, collorA, collorA, *world, OnUpdateLava, lavaData.pack());
 	}
 
-	// Stone.
-	{
-		uint32_t collorA = avl::utils::pack_RGBA(0.75f, 0.75f, 0.75f, 1.0f);
-		uint32_t collorB = avl::utils::pack_RGBA(0.45f, 0.45f, 0.45f, 1.0f);
-		avl::utils::register_cell(8, collorA, collorB, *world, nullptr);
-	}
-
-	// Dirt.
-	{
-		uint32_t collorA = avl::utils::pack_RGBA(0.59f, 0.51f, 0.4f, 1.0f);
-		uint32_t collorB = avl::utils::pack_RGBA(0.26f, 0.20f, 0.15f, 1.0f);
-		avl::utils::register_cell(9, collorA, collorB, *world, nullptr);
-	}
-
-	// Leaves.
-	{
-		avl::CellUserData leavesData(FLAMMABLE, 0);
-		uint32_t collorA = avl::utils::pack_RGBA(0.3f, 0.47f, 0.25f, 1.0f);
-		uint32_t collorB = avl::utils::pack_RGBA(0.29f, 0.73f, 0.09f, 1.0f);
-		avl::utils::register_cell(10, collorA, collorB, *world, nullptr, leavesData.pack());
-	}
-
 	// Gunpowder.
 	{
 		uint32_t collorA = avl::utils::pack_RGBA(0.8f, 0.4f, 0.36f, 1.0f);
-		avl::utils::register_cell(11, collorA, collorA, *world, OnUpdateGunPowder);
+		avl::utils::register_cell(8, collorA, collorA, *world, OnUpdateGunPowder);
 	}
 
 	// Plant seed.
 	{
 		avl::CellUserData plantData(PLANT_SEED | FLAMMABLE, 0);
 		uint32_t collorA = avl::utils::pack_RGBA(0.0f, 0.56f, 0.18f, 1.0f);
-		avl::utils::register_cell(12, collorA, collorA, *world, OnUpdatePlant, plantData.pack());
+		avl::utils::register_cell(9, collorA, collorA, *world, OnUpdatePlant, plantData.pack());
 	}
 
 	// Spark.
 	{
 		avl::CellUserData sparkData(HOT, 0);
 		uint32_t collorA = avl::utils::pack_RGBA(0.0f, 0.56f, 0.18f, 1.0f);
-		avl::utils::register_cell(13, collorA, collorA, *world, OnUpdateSpark, sparkData.pack());
+		avl::utils::register_cell(10, collorA, collorA, *world, OnUpdateSpark, sparkData.pack());
 	}
 
 	// Steel.
 	{
 		avl::CellUserData steelData(CONDUCTIVE, 0);
 		uint32_t collorA = avl::utils::pack_RGBA(0.28f, 0.31f, 0.36f, 1.0f);
-		avl::utils::register_cell(14, collorA, collorA, *world, nullptr, steelData.pack());
+		avl::utils::register_cell(11, collorA, collorA, *world, nullptr, steelData.pack());
 	}
-
 
 	// Unstable matter.
 	{
 		uint32_t collorA = avl::utils::pack_RGBA(1.0f, 0.8f, 0.9f, 1.0f);
-		avl::utils::register_cell(15, collorA, collorA, *world, OnUpdateUnstableMatter);
+		avl::utils::register_cell(12, collorA, collorA, *world, OnUpdateUnstableMatter);
 	}
 
 	// Quantum matter.
 	{
 		uint32_t collorA = avl::utils::pack_RGBA(0.23f, 0.89f, 0.18f, 1.0f);
-		avl::utils::register_cell(16, collorA, collorA, *world, OnUpdateQuantumMatter);
+		avl::utils::register_cell(13, collorA, collorA, *world, OnUpdateQuantumMatter);
 	}
 
 	// Acid.
 	{
 		uint32_t collorA = avl::utils::pack_RGBA(0.0f, 0.59f, 0.18f, 1.0f);
-		avl::utils::register_cell(17, collorA, collorA, *world, OnUpdateAcid);
+		avl::utils::register_cell(14, collorA, collorA, *world, OnUpdateAcid);
 	}
 
 	// Firework.
 	{
 		uint32_t collorA = avl::utils::pack_RGBA(0.58f, 0.31f, 0.58f, 1.0f);
-		avl::utils::register_cell(18, collorA, collorA, *world, OnUpdateFireWork);
+		avl::utils::register_cell(15, collorA, collorA, *world, OnUpdateFireWork);
 	}
-
 
 	world->set_cell_post_processor(CellPostProcessor);
 }
