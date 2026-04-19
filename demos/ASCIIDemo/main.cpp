@@ -36,14 +36,10 @@ static char MapCellIDToChar(int cellID)
 		case 4:  return 'x'; // fire
 		case 5:  return '+'; // wood
 		case 6:  return '^'; // smoke
-		case 7:  return '@'; // lava
-		case 8:  return '='; // stone
-		case 9:  return ':'; // dirt
-		case 10: return '%'; // plant
-		case 11: return '!'; // gunpowder
-		case 12: return '&'; // plant
-		case 13: return '*'; // spark
-		case 17: return '$'; // quantum
+		case 8: return '!'; // gunpowder
+		case 9: return '&'; // plant
+		case 10: return '*'; // spark
+		case 13: return '$'; // quantum
 		default: return '?'; // unknown
 	}
 }
@@ -81,10 +77,10 @@ static void HandleInput(const HANDLE& consoleHandle, avl::World& world, float de
 	else if (GetAsyncKeyState('3') & 0x8000) { currentCellID = 3; ConsoleCursor::currentCellTextInfo = "-WATER"; anyNumKeyDown = true; }
 	else if (GetAsyncKeyState('4') & 0x8000) { currentCellID = 4; ConsoleCursor::currentCellTextInfo = "-FIRE"; anyNumKeyDown = true; }
 	else if (GetAsyncKeyState('5') & 0x8000) { currentCellID = 5; ConsoleCursor::currentCellTextInfo = "-WOOD"; anyNumKeyDown = true; }
-	else if (GetAsyncKeyState('6') & 0x8000) { currentCellID = 11; ConsoleCursor::currentCellTextInfo = "-GUN_POWDER"; anyNumKeyDown = true; }
-	else if (GetAsyncKeyState('7') & 0x8000) { currentCellID = 12; ConsoleCursor::currentCellTextInfo = "-PLANT"; anyNumKeyDown = true; }
-	else if (GetAsyncKeyState('8') & 0x8000) { currentCellID = 13; ConsoleCursor::currentCellTextInfo = "-SPARK"; anyNumKeyDown = true; }
-	else if (GetAsyncKeyState('9') & 0x8000) { currentCellID = 17; ConsoleCursor::currentCellTextInfo = "-QUANTUM"; anyNumKeyDown = true; }
+	else if (GetAsyncKeyState('6') & 0x8000) { currentCellID = 8; ConsoleCursor::currentCellTextInfo = "-GUN_POWDER"; anyNumKeyDown = true; }
+	else if (GetAsyncKeyState('7') & 0x8000) { currentCellID = 9; ConsoleCursor::currentCellTextInfo = "-PLANT"; anyNumKeyDown = true; }
+	else if (GetAsyncKeyState('8') & 0x8000) { currentCellID = 10; ConsoleCursor::currentCellTextInfo = "-SPARK"; anyNumKeyDown = true; }
+	else if (GetAsyncKeyState('9') & 0x8000) { currentCellID = 13; ConsoleCursor::currentCellTextInfo = "-QUANTUM"; anyNumKeyDown = true; }
 
 	numKeyPressed = anyNumKeyDown;
 

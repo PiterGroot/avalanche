@@ -21,6 +21,12 @@
 
 Benchmarker::Benchmarker()
 {
+    if (IsCellMovementFlagSet())
+    {
+        Log(2, "Flag DEMO_CORE_DO_CELL_MOVEMENT_BETWEEN_SECTORS is set inside the DemoCore (common-cell-moves.hpp). Benchmarker does not support it, disable it by not setting the flag.");
+        return;
+    }
+
     const auto cpus = hwinfo::getAllCPUs();
     
     Log(0, "Avalanche engine version v%i.%i.%i",
@@ -41,9 +47,12 @@ Benchmarker::Benchmarker()
 
 void Benchmarker::RunBenchmarks()
 {
-    avl::utils::register_cell(1, avl::utils::pack_RGBA(1.0f, 1.0f, 1.0f, 1.0f), *avalancheInitializer.world);
-    avl::utils::register_cell(2, avl::utils::pack_RGBA(1.0f, 1.0f, 0.0f, 1.0f), *avalancheInitializer.world, OnUpdateSand);
-    avl::utils::register_cell(3, avl::utils::pack_RGBA(0.0f, 0.0f, 1.0f, 1.0f), *avalancheInitializer.world, OnUpdateWater);
+    // Sand.
+    {
+        uint32_t colorA = avl::utils::pack_RGBA(0.99f, 0.97f, 0.0f, 1.0f);
+        uint32_t colorB = avl::utils::pack_RGBA(0.6f, 0.46f, 0.05f, 1.0f);
+        avl::utils::register_cell(2, colorA, colorB, *avalancheInitializer.world, OnUpdateSand);
+    }
 
     {
         avalancheInitializer.world->reset_world();

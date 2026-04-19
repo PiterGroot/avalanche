@@ -277,7 +277,8 @@ namespace avl
 		void run_world_one_tick();
 		void reset_world();
 		bool is_sleeping() const;
-		bool is_postion_empty(int worldX, int worldY);
+		bool is_postion_empty_safe(int worldX, int worldY);
+		bool is_postion_empty_unsafe(int worldX, int worldY);
 		bool is_position_out_of_bounds(int worldX, int worldY);
 		RegisteredCelllPrefab& get_registered_cell_prefab(int index);
 		void set_on_sector_created_listener(OnSectorCreated callback);
@@ -1130,7 +1131,20 @@ namespace avl {
 		return _isSleeping;
 	}
 
-	bool World::is_postion_empty(int worldX, int worldY)
+	bool World::is_postion_empty_safe(int worldX, int worldY)
+	{
+		SimulationSector* sector = try_get_sector(worldX, worldY);
+
+		if (sector == nullptr)
+			return false;
+
+		int localX = worldX - sector->worldX;
+		int localY = worldY - sector->worldY;
+
+		return sector->_is_empty(localX, localY);
+	}
+
+	bool World::is_postion_empty_unsafe(int worldX, int worldY)
 	{
 		SimulationSector* sector = try_get_sector(worldX, worldY);
 

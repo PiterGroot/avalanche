@@ -38,9 +38,9 @@ bool OnUpdateFireWork(avl::CellUpdateContext& ctx)
 					int newXPosition = xPosition + x;
 					int newYPosition = yPosition + y;
 
-					if (ctx.get_cell_id(x, y) != 13)
+					if (ctx.get_cell_id(x, y) != 10)
 					{
-						ctx.world->plot_cell(newXPosition, newYPosition, 13);
+						ctx.world->plot_cell(newXPosition, newYPosition, 10);
 						auto newData = ctx.get_user_data(newXPosition - ctx.sector->worldX, newYPosition - ctx.sector->worldY);
 						newData.set_flag(RANDOM_COLOR);
 						ctx.set_user_data(newXPosition - ctx.sector->worldX, newYPosition - ctx.sector->worldY, newData);

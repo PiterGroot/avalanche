@@ -1,7 +1,7 @@
 #pragma once
 #include <avalanche.hpp>
 
-//#define DEMO_CORE_DO_CELL_MOVEMENT_BETWEEN_SECTORS
+#define DEMO_CORE_DO_CELL_MOVEMENT_BETWEEN_SECTORS
 
 inline bool MoveDown(avl::CellUpdateContext& ctx)
 {
@@ -28,7 +28,7 @@ inline bool MoveDown(avl::CellUpdateContext& ctx)
 #ifdef DEMO_CORE_DO_CELL_MOVEMENT_BETWEEN_SECTORS
 	else
 	{
-		if (ctx.world->is_postion_empty(ctx.x + ctx.sector->worldX, ctx.y + ctx.sector->worldY + 1))
+		if (ctx.world->is_postion_empty_safe(ctx.x + ctx.sector->worldX, ctx.y + ctx.sector->worldY + 1))
 		{
 			ctx.world->plot_cell(ctx.x + ctx.sector->worldX, ctx.y + ctx.sector->worldY, 0);
 			ctx.world->plot_cell(ctx.x + ctx.sector->worldX, ctx.y + ctx.sector->worldY + 1, ctx.cellID);
@@ -45,13 +45,13 @@ inline bool MoveSide(avl::CellUpdateContext& ctx)
 
 	bool left = (!outBoundsLeft && ctx.is_empty(ctx.x - 1, ctx.y))
 #ifdef DEMO_CORE_DO_CELL_MOVEMENT_BETWEEN_SECTORS
-		|| (outBoundsLeft && ctx.world->is_postion_empty(ctx.x + ctx.sector->worldX - 1, ctx.y + ctx.sector->worldY))
+		|| (outBoundsLeft && ctx.world->is_postion_empty_safe(ctx.x + ctx.sector->worldX - 1, ctx.y + ctx.sector->worldY))
 #endif
 		;
 
 	bool right = (!outBoundsRight && ctx.is_empty(ctx.x + 1, ctx.y))
 #ifdef DEMO_CORE_DO_CELL_MOVEMENT_BETWEEN_SECTORS
-		|| (outBoundsRight && ctx.world->is_postion_empty(ctx.x + ctx.sector->worldX + 1, ctx.y + ctx.sector->worldY))
+		|| (outBoundsRight && ctx.world->is_postion_empty_safe(ctx.x + ctx.sector->worldX + 1, ctx.y + ctx.sector->worldY))
 #endif
 		;
 
@@ -96,13 +96,13 @@ inline bool MoveSideDown(avl::CellUpdateContext& ctx)
 
 	bool downLeft = (!outBoundsLeft && ctx.is_empty(ctx.x - 1, ctx.y + 1))
 #ifdef DEMO_CORE_DO_CELL_MOVEMENT_BETWEEN_SECTORS
-		|| (outBoundsLeft && ctx.world->is_postion_empty(ctx.x + ctx.sector->worldX - 1, ctx.y + ctx.sector->worldY + 1))
+		|| (outBoundsLeft && ctx.world->is_postion_empty_safe(ctx.x + ctx.sector->worldX - 1, ctx.y + ctx.sector->worldY + 1))
 #endif
 		;
 
 	bool downRight = (!outBoundsRight && ctx.is_empty(ctx.x + 1, ctx.y + 1))
 #ifdef DEMO_CORE_DO_CELL_MOVEMENT_BETWEEN_SECTORS
-		|| (outBoundsRight && ctx.world->is_postion_empty(ctx.x + ctx.sector->worldX + 1, ctx.y + ctx.sector->worldY + 1))
+		|| (outBoundsRight && ctx.world->is_postion_empty_safe(ctx.x + ctx.sector->worldX + 1, ctx.y + ctx.sector->worldY + 1))
 #endif
 		;
 
@@ -146,7 +146,7 @@ inline bool MoveUp(avl::CellUpdateContext& ctx)
 	else if (ctx.is_out_of_bounds(ctx.x, targetY))
 	{
 #ifdef DEMO_CORE_DO_CELL_MOVEMENT_BETWEEN_SECTORS
-		if (ctx.world->is_postion_empty(ctx.x + ctx.sector->worldX, ctx.y + ctx.sector->worldY - 1))
+		if (ctx.world->is_postion_empty_safe(ctx.x + ctx.sector->worldX, ctx.y + ctx.sector->worldY - 1))
 		{
 			ctx.world->plot_cell(ctx.x + ctx.sector->worldX, ctx.y + ctx.sector->worldY, 0);
 			ctx.world->plot_cell(ctx.x + ctx.sector->worldX, ctx.y + ctx.sector->worldY - 1, ctx.cellID);
@@ -168,7 +168,7 @@ inline bool FloatUp(avl::CellUpdateContext& ctx, int amount = 1)
 	else if (ctx.is_out_of_bounds(ctx.x, targetY))
 	{
 #ifdef DEMO_CORE_DO_CELL_MOVEMENT_BETWEEN_SECTORS
-		if (ctx.world->is_postion_empty(ctx.x + ctx.sector->worldX, ctx.y + ctx.sector->worldY - randomValue))
+		if (ctx.world->is_postion_empty_safe(ctx.x + ctx.sector->worldX, ctx.y + ctx.sector->worldY - randomValue))
 		{
 			ctx.world->plot_cell(ctx.x + ctx.sector->worldX, ctx.y + ctx.sector->worldY, 0);
 			ctx.world->plot_cell(ctx.x + ctx.sector->worldX, ctx.y + ctx.sector->worldY - randomValue, ctx.cellID);
@@ -177,4 +177,13 @@ inline bool FloatUp(avl::CellUpdateContext& ctx, int amount = 1)
 #endif
 	}
 	return isEmpty;
+}
+
+inline bool IsCellMovementFlagSet()
+{
+#ifdef DEMO_CORE_DO_CELL_MOVEMENT_BETWEEN_SECTORS
+	return true;
+#else
+	return false;
+#endif
 }

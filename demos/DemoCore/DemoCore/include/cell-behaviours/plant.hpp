@@ -38,8 +38,8 @@ inline bool OnUpdatePlant(avl::CellUpdateContext& ctx)
 					int randomDirection = avl::utils::get_random_value(-6, 6);
 					ctx.world->plot_line(targetX + ctx.sector->worldX, targetY + ctx.sector->worldY,
 						targetX + ctx.sector->worldX + randomDirection,
-						targetY + ctx.sector->worldY - randomHeight, 10);
-					ctx.world->plot_cell(targetX + ctx.sector->worldX, targetY + ctx.sector->worldY, 12);
+						targetY + ctx.sector->worldY - randomHeight, 16);
+					ctx.world->plot_cell(targetX + ctx.sector->worldX, targetY + ctx.sector->worldY, 9);
 
 					// Clear plant seed flag on target cell.
 					auto targetData = ctx.get_user_data(targetX, targetY);
@@ -55,7 +55,7 @@ inline bool OnUpdatePlant(avl::CellUpdateContext& ctx)
 				targetX = ctx.x - 1;
 				if (ctx.is_empty(targetX, targetY))
 				{
-					ctx.world->plot_cell(targetX + ctx.sector->worldX, targetY + ctx.sector->worldY, 12);
+					ctx.world->plot_cell(targetX + ctx.sector->worldX, targetY + ctx.sector->worldY, 9);
 
 					// Clear plant seed flag on target cell.
 					auto targetData = ctx.get_user_data(targetX, targetY);
@@ -68,7 +68,7 @@ inline bool OnUpdatePlant(avl::CellUpdateContext& ctx)
 				targetX = ctx.x + 1;
 				if (ctx.is_empty(targetX, targetY))
 				{
-					ctx.world->plot_cell(targetX + ctx.sector->worldX, targetY + ctx.sector->worldY, 12);
+					ctx.world->plot_cell(targetX + ctx.sector->worldX, targetY + ctx.sector->worldY, 9);
 
 					// Clear plant seed flag on target cell.
 					auto targetData = ctx.get_user_data(targetX, targetY);
@@ -102,6 +102,6 @@ inline void PlotFlower(int worldX, int worldY, avl::CellUpdateContext& ctx)
 		float saturation = .85f;
 		float value = std::max<float>(avl::utils::get_random_value01(), 0.45f);
 		uint32_t flowerColor = avl::utils::HSVtoRGB(hue, saturation, value);
-		ctx.world->plot_cell(worldX, worldY, 10, flowerColor, false);
+		ctx.world->plot_cell(worldX, worldY, 16, flowerColor, false);
 	}
 }

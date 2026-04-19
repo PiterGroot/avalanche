@@ -20,7 +20,7 @@ public:
 
 public:
 	DEMO_MODE mode = DemoImguiInterface::DEMO_MODE::INACTIVE;
-	int selectedMaterialIndex = 1;
+	int selectedMaterialIndex = 2;
 
 private:
 	Texture2D stoneTexture;
