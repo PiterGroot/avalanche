@@ -346,7 +346,6 @@ namespace avl
 
 #include <algorithm>
 #include <time.h>
-#include <execution>
 #include <omp.h>
 
 #ifdef AVALANCHE_PROFILE
@@ -895,8 +894,7 @@ namespace avl {
 #ifdef AVALANCHE_PROFILE
 			auto start = std::chrono::high_resolution_clock::now();
 #endif
-
-			std::sort(std::execution::par, _cellChanges.begin(), _cellChanges.end(),
+			std::sort(_cellChanges.begin(), _cellChanges.end(),
 				[](auto& a, auto& b) { return a.first < b.first; });
 
 #ifdef AVALANCHE_PROFILE
