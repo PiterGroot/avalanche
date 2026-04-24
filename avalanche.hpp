@@ -87,6 +87,7 @@ namespace avl
 	namespace utils
 	{
 		void register_cell(uint8_t cellID, uint32_t cellColorA, uint32_t cellColorB, World& world, CellUpdateCallback callback = nullptr, uint32_t cellUserData = 0);
+		int get_registered_cell_amount(World& world);
 		int get_random_value(int min, int max);
 		float get_random_value(float min, float max);
 		float get_random_value01();
@@ -309,6 +310,7 @@ namespace avl
 		static void set_debug_drawer(SimulationDebugDrawer* debugDrawer);
 		static SimulationDebugDrawer* get_debug_drawer();
 		friend void utils::register_cell(uint8_t cellID, uint32_t cellColorA, uint32_t cellColorB, World& world, CellUpdateCallback callback, uint32_t cellUserData);
+		friend int utils::get_registered_cell_amount(World& world);
 #ifdef AVALANCHE_USE_CELL_POST_POSTPROCESSOR
 		CellPostProcessor get_cell_post_processor() const;
 		void set_cell_post_processor(CellPostProcessor cellPostProcessor);
@@ -369,6 +371,11 @@ namespace avl {
 		newCellPrefab.updateCallback = callback;
 
 		world._registeredCells.push_back(newCellPrefab);
+	}
+
+	int utils::get_registered_cell_amount(World& world)
+	{
+		return world._registeredCells.size();
 	}
 
 	int utils::get_random_value(int min, int max)
