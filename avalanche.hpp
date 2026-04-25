@@ -375,7 +375,7 @@ namespace avl {
 
 	int utils::get_registered_cell_amount(World& world)
 	{
-		return world._registeredCells.size();
+		return (int)world._registeredCells.size();
 	}
 
 	int utils::get_random_value(int min, int max)
