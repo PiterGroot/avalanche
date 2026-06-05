@@ -24,10 +24,6 @@
 #define AVALANCHE_VERSION_MINOR 1
 #define AVALANCHE_VERSION_PATCH 0
 
-#ifndef AVALANCHE_MAX_THREADS
-#define AVALANCHE_MAX_THREADS -1
-#endif
-
 #pragma warning(push)
 #pragma warning(disable: 4267)
 
@@ -594,14 +590,7 @@ namespace avl {
 		}
 
 #ifdef _OPENMP
-		int maxThreads = omp_get_max_threads();
-
-#if AVALANCHE_MAX_THREADS == -1
-		_numThreads = maxThreads;
-#else
-		_numThreads = (maxThreads < AVALANCHE_MAX_THREADS) ? maxThreads : AVALANCHE_MAX_THREADS;
-#endif
-
+		_numThreads = omp_get_max_threads();
 		omp_set_num_threads(_numThreads);
 #else
 		_numThreads = 1;
