@@ -1,3 +1,4 @@
+// clang-format off
 /*
 	   /$$$$$$                      /$$                               /$$
 	  /$$__  $$                    | $$                              | $$
@@ -747,7 +748,8 @@ namespace avl {
 						prefab.updateCallback(ctx);
 
 #ifdef AVALANCHE_USE_CELL_POST_POSTPROCESSOR
-					_world->get_cell_post_processor()(ctx);
+					if (auto pp = _world->get_cell_post_processor())
+						pp(ctx);
 #endif
 
 					_activeCellsUserData[index] = ctx.userData;
@@ -796,7 +798,8 @@ namespace avl {
 						prefab.updateCallback(ctx);
 
 #ifdef AVALANCHE_USE_CELL_POST_POSTPROCESSOR
-					_world->get_cell_post_processor()(ctx);
+					if (auto pp = _world->get_cell_post_processor())
+						pp(ctx);
 #endif
 
 					_activeCellsUserData[index] = ctx.userData;
@@ -1510,3 +1513,4 @@ namespace avl {
 } // namespace avl
 
 #endif
+// clang-format on
