@@ -264,6 +264,8 @@ namespace avl
 		std::vector<std::pair<std::pair<int, int>, std::pair<int, int>>> _cellSwaps;
 
 		int _numThreads = 1;
+		int _numChunksWidth = 0;
+		int _numChunksHeight = 0;
 	};
 
 	class World
@@ -579,6 +581,9 @@ namespace avl {
 		int numChunksWidth = this->width / chunkSize;
 		int numChunksHeight = this->height / chunkSize;
 
+		_numChunksWidth = numChunksWidth;
+		_numChunksHeight = numChunksHeight;
+		
 		_allChunks.reserve(numChunksWidth * numChunksHeight);
 		_chunkLookup.reserve(numChunksWidth * numChunksHeight);
 
@@ -994,7 +999,7 @@ namespace avl {
 
 	int SimulationSector::_get_chunk_lookup_key(int chunkX, int chunkY)
 	{
-		return chunkX * 10 + chunkY;
+		return chunkX * _numChunksHeight + chunkY;
 	}
 
 	SectorSimulationChunk* SimulationSector::_get_chunk_unsafe(int x, int y)
@@ -1005,14 +1010,24 @@ namespace avl {
 	bool SimulationSector::_get_chunk_safe(int x, int y, SectorSimulationChunk**& outChunk)
 	{
 		outChunk = nullptr;
-		int chunkKey = _get_chunk_lookup_key(x / 50, y / 50);
 
-		if (chunkKey >= _chunkLookup.size() || chunkKey < 0) return false;
-		else
-		{
-			outChunk = &_chunkLookup[chunkKey];
-			return true;
-		}
+		if (x < 0 || y < 0)
+			return false;
+
+		int chunkX = x / 50;
+		int chunkY = y / 50;
+
+		if (chunkX < 0 || chunkX >= _numChunksWidth || chunkY < 0 || chunkY >= _numChunksHeight)
+			return false;
+
+		int chunkKey = _get_chunk_lookup_key(chunkX, chunkY);
+
+		auto it = _chunkLookup.find(chunkKey);
+		if (it == _chunkLookup.end())
+			return false;
+
+		outChunk = &it->second;
+		return true;
 	}
 
 	void SimulationSector::_set_cell_info(size_t index, uint8_t cellID, uint32_t cellColor, uint32_t userData)
