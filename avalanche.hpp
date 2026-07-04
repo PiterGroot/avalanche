@@ -276,6 +276,7 @@ namespace avl
 		void step_world_without_callback(const float deltaTime, const float fixedTimeStep);
 		void run_world_one_tick();
 		void reset_world();
+		void notify();
 		bool is_sleeping() const;
 		bool is_postion_empty_safe(int worldX, int worldY);
 		bool is_postion_empty_unsafe(int worldX, int worldY);
@@ -1123,6 +1124,11 @@ namespace avl {
 
 		for (auto* sector : _activeSimulationSectors)
 			sector->_update();
+	}
+
+	void World::notify()
+	{
+		_isSleeping = false;
 	}
 
 	void World::reset_world()
