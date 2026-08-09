@@ -713,6 +713,10 @@ namespace avl {
 			_threadCellSwaps[i].clear();
 		}
 
+#ifdef AVALANCHE_USE_CELL_POST_POSTPROCESSOR
+			const auto& pp = _world->get_cell_post_processor();
+#endif
+
 #pragma omp parallel for schedule(static)
 		for (int i = 0; i < chunks.size(); i++)
 		{
@@ -723,6 +727,7 @@ namespace avl {
 #endif
 
 			SectorSimulationChunk* activeChunk = chunks[i];
+
 
 			for (int y = 0; y < 50; y++)
 			{
@@ -754,7 +759,7 @@ namespace avl {
 						prefab.updateCallback(ctx);
 
 #ifdef AVALANCHE_USE_CELL_POST_POSTPROCESSOR
-					if (auto pp = _world->get_cell_post_processor())
+					if (pp)
 						pp(ctx);
 #endif
 
@@ -769,6 +774,10 @@ namespace avl {
 		// Clear thread-local buffer 0.
 		_threadCellChanges[0].clear();
 		_threadCellSwaps[0].clear();
+
+#ifdef AVALANCHE_USE_CELL_POST_POSTPROCESSOR
+			const auto& pp = _world->get_cell_post_processor();
+#endif
 
 		for (int i = 0; i < chunks.size(); i++)
 		{
@@ -804,7 +813,7 @@ namespace avl {
 						prefab.updateCallback(ctx);
 
 #ifdef AVALANCHE_USE_CELL_POST_POSTPROCESSOR
-					if (auto pp = _world->get_cell_post_processor())
+					if (pp)
 						pp(ctx);
 #endif
 
@@ -1126,11 +1135,6 @@ namespace avl {
 			sector->_update();
 	}
 
-	void World::notify()
-	{
-		_isSleeping = false;
-	}
-
 	void World::reset_world()
 	{
 		_allSimulationSectors.clear();
@@ -1142,6 +1146,11 @@ namespace avl {
 
 		_sectorCounter = 0;
 		Logging::_log_info("World reset complete");
+	}
+
+	void World::notify()
+	{
+		_isSleeping = false;
 	}
 
 	bool World::is_sleeping() const
