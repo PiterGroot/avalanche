@@ -49,6 +49,7 @@ namespace avl
 	using CellUpdateCallback = bool(*)(CellUpdateContext& ctx);
 	using CellPostProcessor = void(*)(CellUpdateContext& ctx);
 	using OnSectorCreated = void(*)(const SimulationSector* sector);
+	using OnSectorDeleted = void(*)(const int sectorID);
 	using OnSectorUpdated = void(*)(const SimulationSector* sector);
 	using OnWorldReset = void(*)();
 
@@ -204,6 +205,10 @@ namespace avl
 
 		int calculate_index(int x, int y) const;
 		void notify_sector();
+		bool is_empty() const;
+#ifdef AVALANCHE_DEBUG_DRAWER
+		void debug_draw();
+#endif // AVALANCHE_DEBUG_DRAWER
 
 	private:
 		void set_cell(int x, int y, RegisteredCelllPrefab* cell);
@@ -213,9 +218,6 @@ namespace avl
 		void _update();
 		void _process_chunks(std::vector<SectorSimulationChunk*>& chunks);
 		void _process_chunks_sigle_threaded(std::vector<SectorSimulationChunk*>& chunks);
-#ifdef AVALANCHE_DEBUG_DRAWER
-		void _debug_draw();
-#endif // AVALANCHE_DEBUG_DRAWER
 		void _reset_chunks();
 		void _commit_cells();
 		void _move_cell(int x, int y, int fromIndex, int toX, int toY, SectorSimulationChunk* currentChunk, int threadId);
@@ -283,6 +285,7 @@ namespace avl
 		bool is_position_out_of_bounds(int worldX, int worldY);
 		RegisteredCelllPrefab& get_registered_cell_prefab(int index);
 		void set_on_sector_created_listener(OnSectorCreated callback);
+		void set_on_sector_deleted_listener(OnSectorDeleted callback);
 		void set_on_sector_updated_listener(OnSectorUpdated callback);
 		void set_on_world_reset_listener(OnWorldReset callback);
 #ifdef AVALANCHE_DEBUG_DRAWER
@@ -306,6 +309,7 @@ namespace avl
 		SimulationSector* get_or_create_sector(int worldX, int worldY);
 		SimulationSector* try_get_sector(int worldX, int worldY);
 		SimulationSector* get_sector_direct(int sectorIndex);
+		void delete_sector_direct(SimulationSector* sector);
 		int get_sector_count();
 		static void set_debug_drawer(SimulationDebugDrawer* debugDrawer);
 		static SimulationDebugDrawer* get_debug_drawer();
@@ -334,6 +338,7 @@ namespace avl
 
 		CellPostProcessor _cellPostProcessor = nullptr;
 		OnSectorCreated _onSectorCreatedCallback = nullptr;
+		OnSectorDeleted _onSectorDeletedCallback = nullptr;
 		OnSectorUpdated _onSectorUpdatedCallback = nullptr;
 		OnWorldReset _onWorldReset = nullptr;
 	};
@@ -667,6 +672,19 @@ namespace avl {
 		hasBeenUpdatedThisFrame = true;
 	}
 
+	bool SimulationSector::is_empty() const
+	{
+		for (int i = 0; i < simulationSize; i++)
+		{
+			if (_activeCellIDs[i] > 0)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	void SimulationSector::_update()
 	{
 		_activeChunks.clear();
@@ -824,7 +842,7 @@ namespace avl {
 	}
 
 #ifdef AVALANCHE_DEBUG_DRAWER
-	void SimulationSector::_debug_draw()
+	void SimulationSector::debug_draw()
 	{
 		static const SimulationDebugDrawer::DebugDrawColor red = { 230, 41, 55, 255 };
 		static const SimulationDebugDrawer::DebugDrawColor green = { 0, 228, 48, 255 };
@@ -1204,6 +1222,11 @@ namespace avl {
 		_onSectorCreatedCallback = callback;
 	}
 
+	void World::set_on_sector_deleted_listener(OnSectorDeleted callback)
+	{
+		_onSectorDeletedCallback = callback;
+	}
+
 	void World::set_on_sector_updated_listener(OnSectorUpdated callback)
 	{
 		_onSectorUpdatedCallback = callback;
@@ -1218,7 +1241,7 @@ namespace avl {
 	void World::debug_draw()
 	{
 		for (auto* activeSector : _allSimulationSectors)
-			activeSector->_debug_draw();
+			activeSector->debug_draw();
 	}
 #endif // AVALANCHE_DEBUG_DRAWER
 
@@ -1511,6 +1534,22 @@ namespace avl {
 	SimulationSector* World::get_sector_direct(int sectorIndex)
 	{
 		return _allSimulationSectors[sectorIndex];
+	}
+
+	void World::delete_sector_direct(SimulationSector * sector)
+	{
+		if (sector != nullptr)
+		{
+			_allSimulationSectors.erase
+			(
+				std::remove(_allSimulationSectors.begin(), _allSimulationSectors.end(), sector),
+				_allSimulationSectors.end()
+			);
+
+			_sectorCounter--;
+			_activeSimulationSectors.clear();
+			_onSectorDeletedCallback(sector->id);
+		}
 	}
 
 	int World::get_sector_count()
